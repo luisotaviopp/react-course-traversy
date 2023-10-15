@@ -11,12 +11,18 @@ export class Search extends Component {
         searchUsers: PropTypes.func.isRequired,
         clearUsers: PropTypes.func.isRequired,
         showClear: PropTypes.bool.isRequired,
+        setAlert: PropTypes.func.isRequired,
     };
 
     onSubmit = e => {
         e.preventDefault();
-        this.props.searchUsers(this.state.text); // Passa o valor digitado como prop para o componente parent
-        this.setState({text: ''}) // limpa o texto digitado
+
+        if (this.state.text === '') {
+            this.props.setAlert('Please enter something', 'light');
+        } else {
+            this.props.searchUsers(this.state.text); // Passa o valor digitado como prop para o componente parent
+            this.setState({text: ''}) // limpa o texto digitado
+        }
     }
 
     // Capta o valor digitado no input
